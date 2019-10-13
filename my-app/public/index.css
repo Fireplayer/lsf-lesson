@@ -1,0 +1,4 @@
+button:hover {color: red;} 
+      button:link {color: green;}
+      button:visited {color: blue;} 
+      button:active {color: yellow;}

@@ -24,7 +24,42 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>hello world</title>
+    <style>
+
+      #head {
+        background-color: black;
+        color: bisque;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        text-align: center;
+      }
+
+      #content {
+        font-size: 20px;
+        height: 200px;
+        text-align:center;
+        float: left;
+        padding: .5cm;
+      }
+
+      #left {
+        background-color: beige;
+        width: 200px;
+        height: 200px;
+        float: left;
+      }
+
+      #foot {
+        background-color: black;
+        /* width: 100%; */
+        color: bisque;
+        font-size: 20px;
+        text-align:center;
+        clear: both;
+        padding: .5cm;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="index.css" >
   </head>
   <body>
     <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
@@ -40,6 +75,10 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   <!-- </body> -->
-  <h1>zhehhsi</h1>
-  <p>dsdsdsd111111</p>
+  <div>
+    <div id="head"><button>标题</button></div>
+    <div id="left">left</div>
+    <div id="content">content</div>
+    <div id="foot">foot</div>
+  </div>
 </html>
