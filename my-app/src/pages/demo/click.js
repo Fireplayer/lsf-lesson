@@ -11,7 +11,10 @@ import React from "react";
  * 1>通过设置按钮id， 利用docment getElementById 获取
  * 2>react 提供了ref属性     设置按钮ref属性 this.refs[name];
  * 3>react React.createRef  设置ref 可以传递给子控件 
- *   
+ *  
+ * 
+ * 注意：此种处理方式一直依赖于鼠标事件，假如用户没有鼠标的话 就会卡住；
+ * 
  */
 
 class Mselect extends React.Component {
@@ -19,7 +22,7 @@ class Mselect extends React.Component {
     super(props);
     this.state = {
       floded: true,  
-    }  
+    } 
     this.selfRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
     this.handleOutClick = this.handleOutClick.bind(this);
