@@ -1,27 +1,31 @@
 /**
  * 为一组组件定制皮肤，主题不同按钮的样式随之改变。
  */
-import React, { Fragment } from 'react';
 
-let ThemeContext = React.createContext('light');
+import React from 'react';
+let themes = {
+  dark: {font: '#777777', bg: '#ff0000'},
+  light: {font: '#ff0000', bg: '#777777'},
+}
+let ThemeContext = React.createContext(themes.light);
 
 class Skin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      light: true, 
+      useLight: true,
     }
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
-    this.setState({light: !this.state.light})
+    this.setState({useLight: !this.state.useLight});
   }
 
   render() {
-    const theme = this.state.light ? 'light' : 'black';
+    const theme = this.state.useLight ? themes.light : themes.dark;
     return (
-      <ThemeContext.Provider value='light'>
+      <ThemeContext.Provider value={theme}>
         <div>
           <SkinPro></SkinPro>
           <SkinButton handleClick={this.handleClick}></SkinButton>
@@ -33,18 +37,13 @@ class Skin extends React.Component {
 
 class SkinButton extends React.Component {
   static contextType = ThemeContext;
-
   render() {
-    console.log("skin button========== ", ThemeContext, this.context);
-    const color_light = '#999999';
-    const color_black = '#000000';
     const theme = this.context;
-    const isLight = theme === 'light';
     return (
       <button 
         style={{
-          color: isLight ? color_black : color_light,
-          backgroundColor: isLight ? color_light : color_black, 
+          color: theme.font,
+          backgroundColor: theme.bg, 
         }}
         onClick={()=> {
           this.props.handleClick();
@@ -58,16 +57,14 @@ class SkinButton extends React.Component {
 }
 
 class SkinPro extends React.Component { 
+  static contextType = ThemeContext;
   render() {
-    const color_light = '#ffffff';
-    const color_black = '#000000';
-    const theme = this.props.theme;
-    const isLight = theme === 'light';
+    const theme = this.context;
     return (
       <p 
         style={{
-          color: isLight ? color_black : color_light,
-          backgroundColor: isLight ? color_light : color_black, 
+          color: theme.font,
+          backgroundColor: theme.bg, 
         }}
       >
         pto
