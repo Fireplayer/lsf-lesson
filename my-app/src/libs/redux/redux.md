@@ -169,6 +169,116 @@ API
 Presentational and Container Components
 ======================================
 
+======================================
+react-redux
+======================================
+  react-redux 提供的Provider和connect方法
+    Provider：
+    所有内容包裹在Provider组件中，将之前创建的store作为prop传给Provider；
+    let store = createStore(reducer);
+    <Provider store={store}>
+      <App />
+    </Provider>
+    Provider内的任何一个组件（比如这里的Comp），如果需要使用state中的数据，就必须是「被 connect 过的」组件——使用connect方法对「你编写的组件（MyComp）」进行包装后的产物
+
+    connect
+    connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+    connect()接收四个参数，它们分别是mapStateToProps，mapDispatchToProps，mergeProps和options
+
+      mapStateToProps function
+      mapStateToProps(state, ownProps) : stateProps
+      参数state  和 ownProps； 参数返回： stateProps；
+      作用：将store中的数据作为props绑定到组件上。
+
+        state
+        const mapStateToProps = (state) => {
+          return {
+            count: state.count，
+          }
+        }
+        这个函数的第一个参数就是 Redux 的store，我们从中摘取了count属性。因为返回了具有count属性的对象，所以MyComp会有名为count的props字段。
+
+        当然，你不必将state中的数据原封不动地传入组件，可以根据state中的数据，动态地输出组件需要的（最小）属性。
+        const mapStateToProps = (state) => {
+          return {
+            greaterThanFive: state.count > 5
+          }
+        }
+
+        函数的第二个参数ownProps，是MyComp自己的props。有的时候，ownProps也会对其产生影响。比如，当你在store中维护了一个用户列表，而你的组件MyComp只关心一个用户（通过props中的userId体现）。
+
+        ownProps
+        函数的第二个参数ownProps，是MyComp自己的props。有的时候，ownProps也会对其产生影响。比如，当你在store中维护了一个用户列表，而你的组件MyComp只关心一个用户（通过props中的userId体现）。
+
+        const mapStateToProps = (state, ownProps) => {
+          // state 是 {userList: [{id: 0, name: '王二'}]}
+          return {
+            user: _.find(state.userList, {id: ownProps.userId})
+          }
+        }
+
+        class MyComp extends Component {
+          
+          static PropTypes = {
+            userId: PropTypes.string.isRequired,
+            user: PropTypes.object
+          };
+          
+          render(){
+            return <div>用户名：{this.props.user.name}</div>
+          }
+        }
+
+        const Comp = connect(mapStateToProps)(MyComp);
+        当state变化，或者ownProps变化的时候，mapStateToProps都会被调用，计算出一个新的stateProps，（在与ownProps merge 后）更新给MyComp。
+        (数据的变化是否会引起render ？？？)
+
+      mapDispatchToProps(dispatch, ownProps): dispatchProps
+      将action作为props绑定到MyComp上。
+      如上所示，调用actions.increase()只能得到一个action对象{type:'INCREASE'}，要触发这个action必须在store上调用dispatch方法。dispatch正是mapDispatchToProps的第一个参数。但是，为了不让 MyComp 组件感知到dispatch的存在，我们需要将increase和decrease两个函数包装一下，使之成为直接可被调用的函数（即，调用该方法就会触发dispatch）。
+
+      Redux 本身提供了bindActionCreators函数，来将action包装成直接可被调用的函数。
+
+      import {bindActionCreators} from 'redux';
+
+      const mapDispatchToProps = (dispatch, ownProps) => {
+        return bindActionCreators({
+          increase: action.increase,
+          decrease: action.decrease
+        });
+      }
+
+
+
+
+
+      
+
+
+======================================
+demo list
+======================================
+|---actions
+    |---index.js  行为表单（目前的观察来看文件夹下面如果有index.js
+        import { addTodo } from '../actions'
+        在使用import引入的时候，并不需要具体的文件，到文件夹那一层就可以了；
+        （？？？这背后的原理是什么） 
+|---reducers 
+    |---index.js reducer
+        使用combineReducers将独立的reducer合并成一个，根据action对reducer进行归类；然后通过
+        combineReducer进行合并；
+    |---todos.js
+        处理todolist 
+            初始值init  [];
+            行为 ADD_TODO  添加新的任务清单并返回；completed 初始化值为false；
+            行为 TOGGLE_TODO 根据id 修改清单状态，
+    |---visibilityFilter.js
+        过滤器，确定是否显示，和哪些可以显示；
+            SET_VISIBILITY_FILTER  改变选择属性；             
+|---containers
+|---components
+
+
 
 
 
