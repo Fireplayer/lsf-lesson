@@ -4,8 +4,12 @@ Reduce
 =》Array.prototype.reduce(reducer, ?initialValue).累加函数。 
   
 =====what 
+==========================================================
 Redux is a predictable state container for JavaScript apps.
 ----redux是一个针对js应用的可预测的状态容器；
+状态容器有很多关键是可预测，定义了一系列的规则，旨在让状态可预测。
+==========================================================
+
 It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. On top of that, it provides a great developer experience, such as live code editing combined with a time traveling debugger.
 ----redux 可以帮助你开发行为连贯的（？？？），可以在客户端，服务端，原生环境运行，并且容易去测试的的工程。最重要的是提供良好的开发经历。例如redux-devtool 
 You can use Redux together with React, or with any other view library. It is tiny (2kB, including dependencies), but has a large ecosystem of addons available
@@ -160,6 +164,10 @@ API
 |____store.createStore 创建store；参数：reducer；
 |____store.combineReducers 合并reducer；参数：reducer；
 
+
+======================================
+Presentational and Container Components
+======================================
 
 
 

@@ -10,25 +10,6 @@ import SelectListBlur from './pages/demo/click_blur';
 import Skin from './pages/demo/theme';
 import { createStore } from "redux";
 
-function counter(state=0, action) {
-  switch (action.type) {
-    case 'UP':
-      return state + 1;
-    case 'DOWN':
-      return state - 1;
-    default:
-      return state;
-  }
-}
-
-let store = createStore(counter);
-
-store.subscribe(() => console.log('reducer=======', store.getState()));
-store.dispatch({type: 'UP'});
-store.dispatch({type: 'UP'});
-store.dispatch({type: 'UP'});
-store.dispatch({type: 'UP'});
-store.dispatch({type: 'UP'});
 function App() {
   return (
     <div>
