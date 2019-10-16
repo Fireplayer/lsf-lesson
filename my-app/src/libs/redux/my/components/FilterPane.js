@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FilterType } from "../actions";
+import { FilterType, to_filter } from "../actions";
+import {connect} from 'react-redux'
 
 class FilterPane extends Component {
   constructor(props) {
@@ -8,13 +9,12 @@ class FilterPane extends Component {
   }
 
   handleClick(type) {
-    this.props.onFilter(type);
+    this.props.to_filter(type);
   }
 
   render() {
     console.log("filter pane=======render", this.state, this.props);
-    let {filters} = this.props;
-    filters = [FilterType.ALL, FilterType.FINISHED, FilterType.WAITING];
+    let filters = [FilterType.ALL, FilterType.FINISHED, FilterType.WAITING];
     return (
       <div>
         filter:
@@ -25,4 +25,16 @@ class FilterPane extends Component {
     );
   }
 }
-export default FilterPane;
+
+const mapStateToProps = (state, ownProps)=> {
+  return {filter: state.filter};
+}
+
+const mapDispatchToProps = (dispatch, ownProps)=> {
+  return {to_filter: (type)=> {
+    console.log("map dispatch==== ", type);
+    dispatch(to_filter(type));
+  }};
+}
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(FilterPane);

@@ -1,5 +1,5 @@
 
-const countId = 0;
+let countId = 0;
 
 export const Actions = {
   ADD: 'ADD',
@@ -16,7 +16,7 @@ export const FilterType = {
 export function to_add(desc) {
   return {
     type: Actions.ADD,
-    id: countId++,
+    id: ++countId,
     desc,
   };    
 } 
@@ -29,6 +29,7 @@ export function to_change(id) {
 }
 
 export function to_filter(type) {
+    console.log("action filter=======", type);
     return {
       type: Actions.FILTER,
       kind: type,

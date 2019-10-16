@@ -1,6 +1,6 @@
 import {Actions} from '../actions'
 
-function addReducer(state=[{id: 1, desc: 'first', hasFinished: false}], action) {
+function addReducer(state=[{id: 0, desc: 'first', hasFinished: false}], action) {
   let {type, id, desc} = action;
   switch (type) {
     case Actions.ADD:

@@ -69,73 +69,40 @@
  * }
  * 这样就可以通过props处理action 逻辑变化。 
  * 
+ * 结下来是add
+ * 只有一个add的action
+ * connnect 首个参为null；
+ * 
+ * filter
+ * props filter 和 to_filter action
+ * 
+ * 接着就是App的删除，相比起使用react的情况
+ * top-level的state和很多handle全部都被分散到子控件之中
+ * 而且可以清楚的得知这个控件需要什么属性做了什么事情
+ * 
+ * 所以在看别人代码的时候第一时间查看这些属性和方法，会很容易弄清楚这个类是做啥子的
+ * 
+ * 除此之外
+ * propTypes
+ * 使props的数据类型确定，非必须，但是这样可以让你的数据可观察。类似于typescript；
+ * 观察到demo的container文件夹， container中的文件主要做了如下的操作：
+ * 1.mapState  mapDisplatch  connect
+ * 2.对组件进行了在再次的封装。
  */
 
-import React, { Component } from "react";
+import React from "react";
 import AddPane from "./AddPane";
 import ListPane from "./ListPane";
 import FilterPane from "./FilterPane";
-import { FilterType } from "../actions";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.countId = 0;
-    this.state = {
-      missions: [],
-      filter: FilterType.ALL,
-    };
-    this.handlerAddItem = this.handlerAddItem.bind(this);
-    this.handlerFilterChange = this.handlerFilterChange.bind(this);
-    this.handleItemStatusChange = this.handleItemStatusChange.bind(this);
-  }
-
-  handlerAddItem(desc) {
-    console.log('App add item=====', desc, this.state);
-    this.setState({missions: [...this.state.missions, {
-      id: this.countId++,
-      desc,
-      hasFinished: false,
-    }]});
-  }
-
-  handleItemStatusChange(id) {
-    let missions = this.state.missions.map((item, index)=> {
-      console.log("map=========", item.id, id, item.id === id);
-      return item.id === id ? {id, desc: item.desc, hasFinished: !item.hasFinished} : item;
-    });
-    console.log("stataus change =========", this.state, missions);
-    this.setState({missions: this.state.missions.map((item, index)=> {
-      return item.id === id ? {id, desc: item.desc, hasFinished: !item.hasFinished} : item;
-    })});
-  }
-
-  handlerFilterChange(val) {
-    console.log('app filter change=====', val, this.state);
-    this.setState({filter: val});
-  }
-
-  render() {
-    // let missions = this.state.missions.filter((item, index)=> {
-    //   let filter = this.state.filter;
-    //   if (filter === FilterType.WAITING) {
-    //     return !item.hasFinished; 
-    //   } else if (filter === FilterType.FINISHED) {
-    //     return item.hasFinished; 
-    //   } else {
-    //     return true;
-    //   }
-    // });
-
-    return (
-      <div>
-        {/* <AddPane onAdd={this.handlerAddItem} /> */}
-        {/* <ListPane onStatusChange={this.handleItemStatusChange} missions={missions} /> */}
-        {/* <FilterPane onFilter={this.handlerFilterChange} /> */}
-        <ListPane />
-      </div> 
-    );
-  }
+function App() {
+  return (
+    <div>
+      <AddPane />
+      <ListPane />
+      <FilterPane />
+    </div>
+  );
 }
 
 export default App;

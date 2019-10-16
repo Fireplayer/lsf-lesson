@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import { to_change } from "../actions";
+import { FilterType } from "../actions";
 
 class ListPane extends Component {
   constructor(props) {
@@ -16,8 +17,17 @@ class ListPane extends Component {
   }
 
   render() {
-    console.log("list pane==========", this.props);
-    let {missions} = this.props;
+    let {missions, filter} = this.props;
+    missions = missions.filter((item, index)=> {
+      if (filter === FilterType.WAITING) {
+        return !item.hasFinished; 
+      } else if (filter === FilterType.FINISHED) {
+        return item.hasFinished; 
+      } else {
+        return true;
+      }
+    });
+    console.log("lsit render========",this.props);
     return (
       <div>
         <ul>
@@ -39,18 +49,16 @@ class ListPane extends Component {
 }
 
 const mapStateToProps = (state, ownProps)=> {
-  return {missions: state.missions};
+  return {
+    filter: state.filter,
+    missions: state.missions,
+  };
 }
 
 const mapDispatchToProps = (dispatch, ownProps)=> {
   return {to_change: (id)=> {
     dispatch(to_change(id));
   }};
-  // return bindActionCreators({
-  //   to_change: (id)=> {
-  //        dispatch(to_change(id));
-  //    },
-  // });
 } 
 
 export default (connect(mapStateToProps, mapDispatchToProps)(ListPane));
