@@ -19,7 +19,7 @@ class FilterPane extends Component {
       <div>
         filter:
           {filters.map((item)=> {
-            return <button onClick={()=> {this.handleClick(item);}}>{item}</button>;
+            return <button key={item} onClick={()=> {this.handleClick(item);}}>{item}</button>;
           })}
       </div>
     );

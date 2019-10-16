@@ -1,7 +1,9 @@
-const moment = require("moment");
+
+const countId = 0;
 
 export const Actions = {
   ADD: 'ADD',
+  CHANGE: 'CHANGE',
   FILTER: 'FILTER',
 }
 
@@ -11,17 +13,24 @@ export const FilterType = {
   FINISHED: 'FINISHED',
 }
 
-export function Add(desc) {
+export function to_add(desc) {
   return {
     type: Actions.ADD,
-    date: moment(),
+    id: countId++,
     desc,
   };    
 } 
 
-export function filter(desc) {
+export function to_change(id) {
+  return {
+    type: Actions.CHANGE,
+    id, 
+  }
+}
+
+export function to_filter(type) {
     return {
       type: Actions.FILTER,
-      kind: desc,
+      kind: type,
     };  
 }

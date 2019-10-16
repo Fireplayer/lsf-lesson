@@ -1,14 +1,20 @@
 import {Actions} from '../actions'
 
-function addReducer(state=[], action) {
-  let {type, date, desc} = action;
-  switch (action.type) {
+function addReducer(state=[{id: 1, desc: 'first', hasFinished: false}], action) {
+  let {type, id, desc} = action;
+  switch (type) {
     case Actions.ADD:
       return [...state, {
-        date,
+        id,
         desc,
         completed: false,
       }];
+    case Actions.CHANGE:
+      return state.map((item, index)=> {
+        return id === item.id
+          ? Object.assign({}, item, {hasFinished: !item.hasFinished}) 
+          : item;
+      });
     default: 
       return state;
   }

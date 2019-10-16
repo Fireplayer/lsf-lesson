@@ -9,17 +9,17 @@ import * as serviceWorker from './serviceWorker';
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import rootReducer from './libs/redux/todo /reducers'
+import rootReducer from './libs/redux/my/reducers'
 
-// const store = createStore(rootReducer);
-
-// render(
-//   <Provider store={store}>
-//     <App />
-//   </Provider>,
-//   document.getElementById('root')
-// )
-render(<App></App>, document.getElementById('root'));
+const store = createStore(rootReducer);
+console.log("init=====store ", store.getState());
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
+// render(<App></App>, document.getElementById('root'));
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
