@@ -13,7 +13,7 @@
 import React from 'react';
 import {message, DatePicker, ConfigProvider, Alert} from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import 'moment/locale/zh-cn';
 
 class Demo1 extends React.Component {
